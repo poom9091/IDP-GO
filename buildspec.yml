@@ -1,0 +1,22 @@
+version: 0.2
+
+env:
+  parameter-store:
+    image_repo_name: "/${environment}/be/workspace/image_repo_name"
+    image_tag: "/${environment}/be/workspace/image_tag"
+    task_definition_container_name: "/${environment}/be/workspace/task_definition_container_name"
+    aws_default_region: "/${environment}/be/aws_default_region"
+
+phases:
+  build:
+    commands:
+      - >
+        docker build -t $image_repo_name .
+  post_build:
+    commands:
+      - docker push $image_repo_name
+      - printf '[{"name":"%s","imageuri":"%s"}]' $task_definition_container_name  $image_repo_name:$image_tag > imagedefinitions.json 
+
+artifacts:
+    files: 
+      - imagedefinitions.json
