@@ -4,7 +4,7 @@ env:
   parameter-store:
     image_repo_name: "/${environment}/image_repo_name"
     task_definition_container_name: "/${environment}/task_definition_container_name"
-    aws_default_region: "/${environment}/be/aws_default_region"
+    aws_default_region: "/${environment}/aws_default_region"
 
 phases:
   build:
