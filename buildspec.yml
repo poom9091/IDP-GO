@@ -22,7 +22,7 @@ phases:
     commands:
       - docker push $image_repo_name
       - echo "Update ecs service" 
-      - aws update-service --cluster $ecs_cluster --service $ecs_service --force-new-deployment --region $aws_default_region
+      - aws ecs update-service --cluster $ecs_cluster --service $ecs_service --force-new-deployment --region $aws_default_region
       - printf '[{"name":"%s","imageuri":"%s"}]' $task_definition_container_name  $image_repo_name:$image_tag > imagedefinitions.json 
 
 
